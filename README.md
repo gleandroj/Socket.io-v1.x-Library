@@ -6,6 +6,7 @@ Works with ESP8266, Ethernet Library and Arduino Uno (Be careful with memory usa
 ## How To Use This Library
 
 ```
+#include <Ethernet.h>
 #include <SocketIOClient.h>
 
 void ondata(SocketIOClient client, String event, String data);
