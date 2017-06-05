@@ -1,23 +1,29 @@
 # Socket.io-v1.x-Library
-Socket.io Library for Arduino
+Socket.io Library for Arduino - Forked from [Socket.io-v1.x-Library](https://github.com/washo4evr/Socket.io-v1.x-Library)
 
-Works with W5100 & ENC28J60 as well as ESP8266
+Works with ESP8266, Ethernet Library and Arduino Uno (Be careful with memory usage)
 
-Library will not work when the ESP8266 is being driven by a Uno
+## How To Use This Library
 
-Support for JSON was added using https://github.com/bblanchon/ArduinoJson
-Users will need to download the library directly from this link and install it.
+```
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+char hostname[] = "echo.websocket.org";
+int port = 9000;
+SocketIOClient client;
 
-Instead of using client.send, you can now use client.sendJSON
+void setup() {
+  Serial.begin(9600);
+  Ethernet.begin(mac);
+  client.connect(hostname, port);
+  client.setDataArrivedDelegate(ondata);
+  client.emit("arduino connect", "Hello World!");
+}
 
+void loop() {
+  client.monitor();
+}
 
-thanks to funkyguy4000, users can now use #define ESP8266, #define W5100 or #define ENC28J60
-no need to edit socketio.h anymore
-
-REST API added : getREST(path), postREST(path, type, data), putREST(path, type, data), deleteREST(path)
-headers are not yet handled, soon
-
-incoming messages can now be longer than 125 bytes (at least up to 255 bytes)
-will do more testing and edit if necessary
-
-thank you all for your patience
+void ondata(SocketIOClient client, String event, String data) {
+  Serial.println(data);
+}
+```
