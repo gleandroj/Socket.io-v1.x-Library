@@ -6,6 +6,8 @@ Works with ESP8266, Ethernet Library and Arduino Uno (Be careful with memory usa
 ## How To Use This Library
 
 ```
+#include <SocketIOClient.h>
+
 void ondata(SocketIOClient client, String event, String data);
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 char hostname[] = "echo.websocket.org";
